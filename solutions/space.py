@@ -7,7 +7,7 @@ class Joueur() : # classe pour créer le vaisseau du joueur
         self.position = 400
         self.image = pygame.image.load("vaisseau.png")
         self.sens = "O"
-        self.vitesse = 5
+        self.vitesse = 0.5
         self.score = 0
 
     def deplacer(self) :
@@ -29,7 +29,7 @@ class Balle() :
         self.hauteur = 492
         self.image = pygame.image.load("balle.png")
         self.etat = "chargee"
-        self.vitesse = 5
+        self.vitesse = 0.3
     
     def bouger(self):
         if self.etat == "chargee":
@@ -55,10 +55,10 @@ class Ennemi():
         self.type = random.randint(1,2)
         if  (self.type == 1):
             self.image = pygame.image.load("invader1.png")
-            self.vitesse = 1
+            self.vitesse = 0.1
         elif (self.type ==2):
             self.image = pygame.image.load("invader2.png")
-            self.vitesse = 2
+            self.vitesse = 0.2
             
     def avancer(self):
         self.hauteur = self.hauteur + self.vitesse
@@ -69,9 +69,9 @@ class Ennemi():
         self.type = random.randint(1,2)
         if  (self.type == 1):
             self.image = pygame.image.load("invader1.png")
-            self.vitesse = 1
+            self.vitesse = 0.1
         elif (self.type ==2):
             self.image = pygame.image.load("invader2.png")
-            self.vitesse = 2
+            self.vitesse = 0.2
         
     
