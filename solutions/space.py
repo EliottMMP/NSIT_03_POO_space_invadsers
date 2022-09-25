@@ -20,7 +20,7 @@ class Joueur() : # classe pour créer le vaisseau du joueur
         self.sens = "O"
         
     def marquer(self):
-        self.score = self.score + 1
+        self.score = self.score + self.point_gagne
 
 class Balle() :
     def __init__(self, tireur):
@@ -47,7 +47,6 @@ class Balle() :
             return True
   
 class Ennemi():
-    NbEnnemis = 6
     
     def __init__(self):
         self.depart = random.randint(1,700)
@@ -70,8 +69,10 @@ class Ennemi():
         if  (self.type == 1):
             self.image = pygame.image.load("invader1.png")
             self.vitesse = 0.1
+            self.point_gagne = 100
         elif (self.type ==2):
             self.image = pygame.image.load("invader2.png")
             self.vitesse = 0.2
+            self.point_gagne = 200
+
         
-    
