@@ -24,11 +24,13 @@ for indice in range(space.Ennemi.NbEnnemis):
     
 ### BOUCLE DE JEU  ###
 running = True # variable pour laisser la fenêtre ouverte
-
 while running : # boucle infinie pour laisser la fenêtre ouverte
     # dessin du fond
     screen.blit(fond,(0,0))
-
+if self.score <= 2000:
+    Running = False 
+    print(" You WIN !!!")
+    
     ### Gestion des événements  ###
     for event in pygame.event.get(): # parcours de tous les event pygame dans cette fenêtre
         if event.type == pygame.QUIT : # si l'événement est le clic sur la fermeture de la fenêtre
@@ -63,5 +65,7 @@ while running : # boucle infinie pour laisser la fenêtre ouverte
     for ennemi in listeEnnemis:
         ennemi.avancer()
         screen.blit(ennemi.image,[ennemi.depart, ennemi.hauteur]) # appel de la fonction qui dessine le vaisseau du joueur
+    
         
+    
     pygame.display.update() # pour ajouter tout changement à l'écran
