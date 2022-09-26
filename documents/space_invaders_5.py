@@ -27,9 +27,9 @@ running = True # variable pour laisser la fenêtre ouverte
 while running : # boucle infinie pour laisser la fenêtre ouverte
     # dessin du fond
     screen.blit(fond,(0,0))
-if self.score <= 2000:
-    Running = False 
-    print(" You WIN !!!")
+    if player.score >= 2000:
+        running = False 
+        print(" You WON !!!")
     
     ### Gestion des événements  ###
     for event in pygame.event.get(): # parcours de tous les event pygame dans cette fenêtre
@@ -65,6 +65,8 @@ if self.score <= 2000:
     for ennemi in listeEnnemis:
         ennemi.avancer()
         screen.blit(ennemi.image,[ennemi.depart, ennemi.hauteur]) # appel de la fonction qui dessine le vaisseau du joueur
+        if ennemi.hauteur == 600:
+            ennemi.hauteur = 0
     
         
     
