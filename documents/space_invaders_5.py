@@ -1,3 +1,10 @@
+# -*- coding: utf-8 -*-
+"""
+Created on Tue Sep  6 21:33:49 2022
+
+@author: Administrateur
+"""
+
 import pygame # importation de la librairie pygame
 import space
 import sys # pour fermer correctement l'application
