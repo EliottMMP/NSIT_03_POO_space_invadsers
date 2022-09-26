@@ -48,6 +48,8 @@ class Balle() :
   
 class Ennemi():
     
+    NbEnnemis = 6
+    
     def __init__(self):
         self.depart = random.randint(1,700)
         self.hauteur = 10
@@ -74,5 +76,3 @@ class Ennemi():
             self.image = pygame.image.load("invader2.png")
             self.vitesse = 0.2
             self.point_gagne = 200
-
-        
