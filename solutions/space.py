@@ -1,3 +1,10 @@
+# -*- coding: utf-8 -*-
+"""
+Created on Tue Sep  6 21:27:09 2022
+
+@author: Administrateur
+"""
+
 import pygame  # necessaire pour charger les images et les sons
 import random
 import math
@@ -14,7 +21,7 @@ class Joueur() : # classe pour créer le vaisseau du joueur
         if (self.sens == "droite") and (self.position < 740):
             self.position = self.position + self.vitesse
         elif (self.sens == "gauche") and (self.position > 0):
-           self.position = self.position - self.vitesse
+            self.position = self.position - self.vitesse
            
     def tirer(self):
         self.sens = "O"
