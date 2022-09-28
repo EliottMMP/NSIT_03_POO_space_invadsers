@@ -12,10 +12,12 @@ import math
 class Joueur() : # classe pour créer le vaisseau du joueur
     def __init__(self) :
         self.position = 400
-        self.image = pygame.image.load("vaisseau.png")
+        self.image = pygame.image.load("galaga.png")
+        self.images = pygame.transform.scale(self.image, (64, 64))
         self.sens = "O"
-        self.vitesse = 0.5
+        self.vitesse = 2
         self.score = 0
+        self.vie = 10
 
     def deplacer(self) :
         if (self.sens == "droite") and (self.position < 740):
@@ -28,6 +30,9 @@ class Joueur() : # classe pour créer le vaisseau du joueur
         
     def marquer(self):
         self.score = self.score + self.point_gagne
+        
+    def life_less(self):
+        self.vie = self.vie - 1
 
 class Balle() :
     def __init__(self, tireur):
@@ -36,7 +41,7 @@ class Balle() :
         self.hauteur = 492
         self.image = pygame.image.load("balle.png")
         self.etat = "chargee"
-        self.vitesse = 0.3
+        self.vitesse = 5
     
     def bouger(self):
         if self.etat == "chargee":
@@ -44,7 +49,6 @@ class Balle() :
             self.hauteur = 492
         elif self.etat == "tiree" :
             self.hauteur = self.hauteur - self.vitesse
-        
         if self.hauteur < 0:
             self.etat = "chargee"
                 
@@ -55,7 +59,7 @@ class Balle() :
   
 class Ennemi():
     
-    NbEnnemis = 6
+    NbEnnemis = random.randint(3, 6)
     
     def __init__(self):
         self.depart = random.randint(1,700)
@@ -63,10 +67,12 @@ class Ennemi():
         self.type = random.randint(1,2)
         if  (self.type == 1):
             self.image = pygame.image.load("invader1.png")
-            self.vitesse = 0.1
+            self.image = pygame.transform.scale(self.image, (80, 80))
+            self.vitesse = 0.5
         elif (self.type ==2):
-            self.image = pygame.image.load("invader2.png")
-            self.vitesse = 0.2
+            self.image = pygame.image.load("bee.png")
+            self.image = pygame.transform.scale(self.image, (80, 80))
+            self.vitesse = 1
             
     def avancer(self):
         self.hauteur = self.hauteur + self.vitesse
@@ -77,9 +83,15 @@ class Ennemi():
         self.type = random.randint(1,2)
         if  (self.type == 1):
             self.image = pygame.image.load("invader1.png")
+            self.image = pygame.transform.scale(self.image, (80, 80))
             self.vitesse = 0.1
             self.point_gagne = 100
         elif (self.type ==2):
-            self.image = pygame.image.load("invader2.png")
+            self.image = pygame.image.load("bee.png")
+            self.image = pygame.transform.scale(self.image, (80, 80))
             self.vitesse = 0.2
             self.point_gagne = 200
+            
+    def degats(self, vaisseau):
+        if (math.fabs(self.hauteur - vaisseau.hauteur) < 40) and (math.fabs(self.depart - vaisseau.position) < 40):
+            return True
