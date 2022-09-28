@@ -17,7 +17,7 @@ screen = pygame.display.set_mode((800,600))
 pygame.display.set_caption("Space Invaders") 
 # chargement de l'image de fond
 fond = pygame.image.load('background.png')
-
+fond = pygame.transform.scale(fond, (800, 60))
 # creation du joueur
 player = space.Joueur()
 # creation de la balle
@@ -29,6 +29,10 @@ for indice in range(space.Ennemi.NbEnnemis):
     vaisseau = space.Ennemi()
     listeEnnemis.append(vaisseau)
     
+# Création du texte pour afficher le score et les points de vie du boss
+font = pygame.font.Font('freesansbold.ttf', 32)
+fontLP = pygame.font.Font('freesansbold.ttf', 20)
+    
 ### BOUCLE DE JEU  ###
 running = True # variable pour laisser la fenêtre ouverte
 while running : # boucle infinie pour laisser la fenêtre ouverte
@@ -37,6 +41,13 @@ while running : # boucle infinie pour laisser la fenêtre ouverte
     if player.score >= 2000:
         running = False 
         print(" You WON !!!")
+        
+    # Affichage du score
+    textScore = font.render("Score : " + str(player.score), True, (255,255,255))
+    screen.blit(textScore, (600, 10))
+    # Affichage des PV du joueur
+    text_LP_Player = fontLP.render("LP restants : " + str(player.vie), True, (0,255,0))
+    screen.blit(text_LP_Player, (10, 575))
     
     ### Gestion des événements  ###
     for event in pygame.event.get(): # parcours de tous les event pygame dans cette fenêtre
@@ -69,11 +80,15 @@ while running : # boucle infinie pour laisser la fenêtre ouverte
     tir.bouger()
     screen.blit(player.image,[player.position,500]) # appel de la fonction qui dessine le vaisseau du joueur
     # les ennemis
-    for ennemi in listeEnnemis:
+    for ennemi inlisteEnnemis:
         ennemi.avancer()
-        screen.blit(ennemi.image,[ennemi.depart, ennemi.hauteur]) # appel de la fonction qui dessine le vaisseau du joueur
-        if ennemi.hauteur == 600:
-            ennemi.hauteur = 0
+        # Inflige des dégats au joueur lorsqu'il est touché
+        if ennemi.degats(player):
+            player.losePV()
+            ennemi.disparaitre()
+        screen.blit(ennemi.image,[ennemi.depart, ennemi.hauteur]) # appel de la fonction qui dessine les ennemis
+        if ennemi.hauteur > 600 : # fait disparaitre l'ennemi s'il sort de l'ecran
+            ennemi.disparaitre()
     
         
     
